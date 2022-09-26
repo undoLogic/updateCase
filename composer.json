@@ -1,3 +1,4 @@
 {
-    "name": "undologic/updatecaseclient"
+    "name": "undologic/updatecaseclient",
+     "type": "cakephp-plugin"
 }
