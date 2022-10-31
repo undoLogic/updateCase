@@ -392,7 +392,7 @@
                         if ($offset > 50) $continue = false;
                     } while($continue);
 
-                    // $list['surrounding'] = $string;
+                   // $list['surrounding'] = $string;
                     $list['key'] = $key;
                     //dd($token);
                     //it is a public function so let's track it
@@ -402,7 +402,7 @@
             }
         }
 
-        // pr ($lists); exit;
+       // pr ($lists); exit;
 
         //dd($tokens);
 
@@ -526,6 +526,7 @@
         $this->addDebugMessage('getContentBy: '.$this->locationViewString($locationName, $elementName, $groupName));
 
         $element = $this->getElement($locationName, $elementName, $groupName);
+
         //@todo add is location active
 
         if (isset($element['name'])) {
@@ -557,17 +558,19 @@
 
     private function isCurrentLanguage($fieldLang)
     {
-        $this->addDebugMessage('isCurrentLanguage ('.$fieldLang.' == '.$this->lang.')', false);
         if (
             strtolower(substr($fieldLang, 0, 2))
             ==
             strtolower(substr($this->lang, 0, 2))
         ) {
-            $this->addDebugMessage('TRUE', false);
+            $this->addDebugMessage('CorrectLang', false);
+            return true;
+        } else if ($fieldLang == 'ALL') {
+            $this->addDebugMessage('AllLang', false);
             return true;
         }
 
-        $this->addDebugMessage('FALSE', false);
+        $this->addDebugMessage('LangMismatch', false);
         return false;
     }
 
@@ -2058,71 +2061,39 @@
 
     }
 
-    private function getElementKey($locationKey, $elementToFind, $group) {
+    private function isGroupCorrect($groupToFind, $currentLoopedGroup) {
+        if ($groupToFind == $currentLoopedGroup) {
+            //exactly the same so good
+            $this->addDebugMessage('GroupMatch:'.$groupToFind, false);
+            return true;
+        } else {
+            $this->addDebugMessage('GroupMismatch:'.$groupToFind.'/'.$currentLoopedGroup, false);
+            return false;
+        }
+    }
+
+    private function getElementKey($locationKey, $elementToFind, $groupToFind) {
         if (!$this->isPrepared()) {
             $this->addDebugMessage('getElementKey not prepared');
             return false;
         }
-
-        $this->addDebugMessage('getElementKey: '.$this->locationViewString($locationKey, $elementToFind, $group), false);
+        $this->addDebugMessage('getElementKey: '.$this->locationViewString($locationKey, $elementToFind, $groupToFind), true);
         $groupMsg = '';
         if (isset($this->page['Location'])) {
             if (isset($this->page['Location'][$locationKey])) {
-
-                $this->addDebugMessage('ElementToFind: '.$elementToFind, false);
-
                 foreach ($this->page['Location'][$locationKey]['Element'] as $elementKey => $element) {
 
-                    $this->addDebugMessage(' checkingElmKey: '.$elementKey, false);
+                    $this->addDebugMessage(' checkingElmKey:'.$elementKey, true);
                     //@todo add all the logic about if it's a dated one etc
-
-                    //if we have a group we are going to skip all elements that have group 0
-                    if (!$group) {
-
-                        $this->addDebugMessage('doNOTwantGroup groupBy: '.$element['groupBy'], false);
-
-                        if (empty($element['groupBy'])) {
-                            //group is empty
-                            $this->addDebugMessage('groupByEMPTY (good)', false);
-                        } elseif ($element['groupBy'] === 0) {
-                            //zero is a group
-                            $this->addDebugMessage('groupByZERO (bad = skip)', false);
-                            continue;
-                            //this is good as groupBy is ZERO and we are NOT looking for a group
-                        } else {
-                            $this->addDebugMessage('groupByPRESENT (bad = skip)', false);
-                            continue;
-                        } //we do NOT want group zero
-                    } else {
-                        //we are looking for a group
-                        $this->addDebugMessage('WantGroup groupBy: '.$element['groupBy'], false);
-
-                        if (empty($element['groupBy'])) {
-                            //group is empty
-                            $this->addDebugMessage('groupByEMPTY (bad)', false);
-                            continue;
-
-                        } elseif ($element['groupBy'] === 0) {
-                            //zero is a group
-                            $this->addDebugMessage('groupByZERO (good)', false);
-                        } else {
-                            $this->addDebugMessage('groupByPRESENT (good)', false);
+                    if ($elementToFind == $element['name']) {
+                        if ($this->isGroupCorrect($groupToFind, $element['groupBy'])) {
+                            if ($this->isCurrentLanguage($element['language'])) {
+                                $this->addDebugMessage('FOUND ELEMENT: '.$elementKey, false);
+                                return $elementKey;
+                            }
                         }
                     }
-
-                    if ($element['language'] == 'ALL') {
-                        if ($elementToFind == $element['name']) {
-                            return $elementKey;
-                        } else {
-                            $this->addDebugMessage('langALL but elms do NOT match', false);
-                        }
-                    } else if ($this->isCurrentLanguage($element['language'])) {
-                        if ($elementToFind == $element['name']) {
-                            return $elementKey;
-                        } else {
-                            $this->addDebugMessage('lang'.$element['language'].' but elms do NOT match', false);
-                        }
-                    }
+                    $this->addDebugMessage('ElementNameNotMatch', false);
                 }
             } else {
                 $this->addDebugMessage(' -LocationNOTexist', false);
@@ -2233,7 +2204,7 @@
         $variant_id = $this->page['variant_id'];
         $pageSlug = $this->page['slug'];
 
-        $string .= ' loaded: (v'.$variant_id;
+        $string .= ' (v'.$variant_id;
         $string .= '/s'.$pageSlug.')';
 
         return $string;
@@ -2283,21 +2254,21 @@
      * @param $string
      * @return string
      */
-    public function removeImages($string)
-    {
-        return preg_replace("/<img[^>]+\>/i", "", $string);
-    }
+	public function removeImages($string)
+	{
+		return preg_replace("/<img[^>]+\>/i", "", $string);
+	}
 
     /**
      * Remove the HTML elements from a string
      * @param $str
      * @return array|string|string[]|null
      */
-    public function removeHtmlElements($str)
-    {
-        $str = preg_replace('/\<[\/]{0,1}div[^\>]*\>/i', '', $str);
-        return $str;
-    }
+	public function removeHtmlElements($str)
+	{
+		$str = preg_replace('/\<[\/]{0,1}div[^\>]*\>/i', '', $str);
+		return $str;
+	}
 
     /**
      * Easily make sure your path has either https:// OR http://
@@ -2305,27 +2276,27 @@
      * @param $prefix # http:// OR https://
      * @return string
      */
-    public function ensureHttpOrHttps($url, $prefix = 'http://')
-    {
-        if (substr($url, 0, 7) == 'http://') {
-            return $url;
-        } else if (substr($url, 0, 8) == 'https://') {
-            return $url;
-        } else {
-            //add it
-            return $prefix . $url;
-        }
-    }
+	public function ensureHttpOrHttps($url, $prefix = 'http://')
+	{
+		if (substr($url, 0, 7) == 'http://') {
+			return $url;
+		} else if (substr($url, 0, 8) == 'https://') {
+			return $url;
+		} else {
+			//add it
+			return $prefix . $url;
+		}
+	}
 
     /**
      * Quotes will only be SINGLE QUOTES, allows to safely add to html tags that are double quotes and not break the tag
      * @param $str
      * @return array|string|string[]
      */
-    private function cleanUpStringForQuotedSections($str)
-    {
+	private function cleanUpStringForQuotedSections($str)
+	{
         return $str ? str_replace('"', "'", $str): "";
-    }
+	}
 
     /**
      * @param $remove
@@ -2353,78 +2324,78 @@
     /**
      * DEPRECATED
      */
-    public function isEvery($nth, $count)
-    {
-        //2
-        if ($count == $nth) {
-            return true;
-        }
-        return false;
-    }
+	public function isEvery($nth, $count)
+	{
+		//2
+		if ($count == $nth) {
+			return true;
+		}
+		return false;
+	}
 
     /**
      * DEPRECATED
      */
-    public function getSingleNamesByLocation($locationName, $sort = 'ASC', $slug = false)
-    {
-        if ($slug) {
-            $this->loadPageBySlug($slug);
-        }
+	public function getSingleNamesByLocation($locationName, $sort = 'ASC', $slug = false)
+	{
+		if ($slug) {
+			$this->loadPageBySlug($slug);
+		}
 
-        $this->groupNames = array();
-        $this->singleNames = array();
+		$this->groupNames = array();
+		$this->singleNames = array();
 
-        $this->prepareElementsInLocation($locationName);
+		$this->prepareElementsInLocation($locationName);
 
-        //pr ($this->singleNames);exit;
-        if ($sort == 'ASC') {
-            natsort($this->singleNames);
-        } else {
-            krsort($this->singleNames);
-        }
-        return $this->singleNames;
-    }
-
-    /**
-     * DEPRECATED
-     */
-    public function getGroupNamesByLocation($locationName, $sort = 'ASC', $slug = false)
-    {
-        if ($slug) {
-            $this->loadPageBySlug($slug);
-        }
-
-        $this->groupNames = array();
-        $this->singleNames = array();
-
-        $this->prepareElementsInLocation($locationName);
-
-        if ($sort == 'ASC') {
-            natsort($this->groupNames);
-        } else {
-            krsort($this->groupNames);
-        }
-        return $this->groupNames;
-    }
+		//pr ($this->singleNames);exit;
+		if ($sort == 'ASC') {
+			natsort($this->singleNames);
+		} else {
+			krsort($this->singleNames);
+		}
+		return $this->singleNames;
+	}
 
     /**
      * DEPRECATED
      */
-    public function getTotalRecords()
-    {
-        return $this->total;
-    }
+	public function getGroupNamesByLocation($locationName, $sort = 'ASC', $slug = false)
+	{
+		if ($slug) {
+			$this->loadPageBySlug($slug);
+		}
+
+		$this->groupNames = array();
+		$this->singleNames = array();
+
+		$this->prepareElementsInLocation($locationName);
+
+		if ($sort == 'ASC') {
+			natsort($this->groupNames);
+		} else {
+			krsort($this->groupNames);
+		}
+		return $this->groupNames;
+	}
 
     /**
      * DEPRECATED
      */
-    public function convertString($from, $to, $string)
-    {
-        foreach ($from as $kFrom => $vFrom) {
-            $string = str_replace($vFrom, $to[$kFrom], $string);
-        }
-        //return "";
-        return $string;
-    }
+	public function getTotalRecords()
+	{
+		return $this->total;
+	}
+
+    /**
+     * DEPRECATED
+     */
+	public function convertString($from, $to, $string)
+	{
+		foreach ($from as $kFrom => $vFrom) {
+			$string = str_replace($vFrom, $to[$kFrom], $string);
+		}
+		//return "";
+		return $string;
+	}
 
 }
