@@ -1,5 +1,5 @@
 {
-    "name": "undologic/updatecaseclient",
-     "type": "cakephp-plugin",
-    "license": "MIT"
+  "name": "undologic/updateCase",
+  "type": "cakephp-plugin",
+  "license": "MIT"
 }
