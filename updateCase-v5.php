@@ -874,7 +874,7 @@
             //@todo should create a auto create shared method to handle when directory does not exist
             //$dir = new Folder($cache, true, 0775);
             if (file_exists($cache)) {
-                $imageLink = 'https://site.updatecase.com/download/' . $id . '/' . $filename;
+                $imageLink = 'https://site.updatecase.com/display/' . $id . '/' . $filename;
 
                 $this->addDebugMessage('imageLink: '.$imageLink, false);
                 $arrContextOptions = array(
