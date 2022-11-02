@@ -797,6 +797,9 @@
      */
     public function getFileBy($location, $element, $group = false, $slug = false)
     {
+
+        $this->addDebugMessage('getFileBy: '.$this->locationViewString($location, $element, $group));
+
         if ($slug) {
             $this->loadPageBySlug($slug);
         }
@@ -808,6 +811,8 @@
         }
         //pr ($element);
         $id = $this->getIdBy($location, $element, $group);
+
+        //dd($id);
 
         if (!$id) {
             $message = 'File cannot load | Location: ' . $location . ' / Element ' . $element . ' / Group:' . $group;
@@ -855,22 +860,23 @@
         //$file = new File($cache . $filename);
 
         $fileExists = file_exists($cache.$filename);
-        // pr ($filename);exit;
+         //pr ($filename);exit;
 
         if ($fileExists) {
+
+            $this->addDebugMessage('Cached image exists', false);
             //return the local file
             return $cache . $filename;
         } else {
             //create the file locally
+            $this->addDebugMessage('NOcachedImage: downloading...', false);
 
-
+            //@todo should create a auto create shared method to handle when directory does not exist
             //$dir = new Folder($cache, true, 0775);
-
             if (file_exists($cache)) {
+                $imageLink = 'https://site.updatecase.com/download/' . $id . '/' . $filename;
 
-                //$imageLink = 'https://site.updatecase.com/display/' . $id . '/file.png';
-                $imageLink = 'https://site.updatecase.com/display/' . $id . '/' . $filename;
-
+                $this->addDebugMessage('imageLink: '.$imageLink, false);
                 $arrContextOptions = array(
                     "ssl" => array(
                         "verify_peer" => false,
@@ -882,15 +888,14 @@
                     stream_context_create($arrContextOptions)
                 );
 
-                file_put_contents($filename, $output);
+                file_put_contents($cache.$filename, $output);
 
+                $this->addDebugMessage('writing image to cache: '.$cache.$filename, false);
                 //$file->write($output);
                 return $cache . $filename;
             } else {
-                //something went wrong with creating the folder, so let's just return the link from our server
-                //$imageLink = 'http://files.setupcase.com/display/' . $id . '/file.png';
-                $imageLink = 'http://site.updatecase.com/display/' . $id . '/file.png';
-                return $imageLink;
+                $this->addDebugMessage('ERROR: image cache folder not working cannot create image', true);
+                return false;
             }
         }
     }
@@ -1126,7 +1131,7 @@
 
         $date = strtotime($this->page['date']);
         $lang = $this->currLang();
-        if ($lang == 'fre') {
+        if ($lang == 'fr') {
 
             if ($format == 'Y') {
                 return date($format, $date);
