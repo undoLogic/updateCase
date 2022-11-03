@@ -1137,11 +1137,18 @@
                 return date($format, $date);
             } else {
                 //french
-                setlocale(LC_ALL, 'fr_FR.UTF-8');
-                //echo date('D d M, Y');
-                //return strftime("%a %d %b %Y", $date);
-                return strftime("%e %B %Y", $date);
-                //$shortDate = strftime("%d %b %Y", $date);
+
+                //newer version to show french date
+                $first_day_in_month = new DateTime($this->page['date']);
+                $fmt = datefmt_create(
+                    'fr_FR',
+                    IntlDateFormatter::FULL,
+                    IntlDateFormatter::FULL,
+                    'Europe/Paris',
+                    IntlDateFormatter::GREGORIAN,
+                    'MMMM yy'
+                );
+                return datefmt_format($fmt,$first_day_in_month);
             }
         } else {
             return date($format, $date);
@@ -1258,8 +1265,10 @@
      * @param $options
      * @return array|void
      */
-    public function getPageSlugsByTagWithLocationElement($tagName, $sortBy = 'ASC', $location, $element, $group = false, $limit = false, $offset = false, $options = false)
+    public function getPageSlugsByTagWithLocationElement($tagName, $sortBy, $location, $element, $group = false, $limit = false, $offset = false, $options = false)
     {
+
+        //@todo make this function smaller someday
 
         $this->addDebugMessage('getPageSlugsByTagWithLocationElement', true);
 
@@ -1277,24 +1286,14 @@
 
                 //pr ($this->language);exit;
 
-                $pagesHasStuffForThisLanguage = false;
+
                 //let's ensure we have the following location / element
                 foreach ($page['Location'] as $tierLocation) {
                     foreach ($tierLocation['Element'] as $tierElement) {
-
-                        //dd($tierElement);
+                        $pagesHasStuffForThisLanguage = false;
                         if ( $this->isCurrentLanguage($tierElement['language']) ) {
                             $pagesHasStuffForThisLanguage = true;
                         }
-//                        //pr ($tierElement);exit;@todo by sacha
-//                        if(isset($this->possibleLanguages[
-//                            $tierElement['language']
-//                            ])){
-//
-//                            if ($this->language == $this->possibleLanguages[$tierElement['language']]) {
-//                                $pagesHasStuffForThisLanguage = true;
-//                            }
-//                         }
                     }
                 }
 
@@ -1321,7 +1320,6 @@
 
             //die('after');
 
-
             if ($sortBy == 'ASC') {
                 //sort by the date which is the key
                 asort($sort);
@@ -1345,33 +1343,20 @@
                 }
 
             }
-            //pr ($pageNames);exit;
-
             $this->total = count($pageNames);
-
             if (empty($pageNames)) {
                 return array();
-//            $message = 'Tag not found: ' . $tagName;
-//            return $this->missingMessage($message);
                 exit;
             }
-
             if (!$limit) {
                 return $pageNames;
             } else {
                 $pageNames = array_slice($pageNames, (($offset - 1) * $limit), $limit);
                 return $pageNames;
             }
-
-            //pr ($pageNames);
-            //exit;
-
         } else {
-
-
+            //@todo add debug messages here
         }
-
-
     }
 
     /**
