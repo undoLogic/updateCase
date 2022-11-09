@@ -336,7 +336,47 @@
         return $string;
     }
 
+
+    /**
+     * Allows to view all the functions within your software and verify they are properly setup
+     * @return array
+     */
     public function getApiList() {
+        //locations to search
+
+        $base = APP;
+        $locations = [
+            'Controller',
+            'Controller/Staff',
+            'Controller/Admin',
+            'Model/Entity',
+            'Model/Table',
+            'Util'
+        ];
+
+        $all = [];
+
+        foreach ($locations as $location) {
+            $files = array_diff(scandir($base.$location.DS), array('..', '.'));
+            foreach ($files as $file) {
+               $functions = $this->getApiListFromLocation($base.$location.DS.$file);
+               if ($functions === false) {
+                   //nothing included
+               } else {
+                   if (!isset($all[$location])) {
+                       $all[$location] = [];
+                   }
+                   $all[$location][] = [
+                       'file' => $file,
+                       'functions' => $functions
+                   ];
+               }
+            }
+        }
+        return $all;
+    }
+
+    private function getApiListFromLocation($fileLocation = __FILE__) {
         preg_match_all('/public function (\w+)/', file_get_contents(__FILE__), $m);
 
         $list = [];
@@ -344,16 +384,35 @@
         $publicLoc = -2;
         $functionName = +2;
 
-        $tokens = token_get_all( file_get_contents(__FILE__) );
+        $lists['public'] = [];
+        $lists['static'] = [];
+        $lists['private'] = [];
+
+
+        if (!is_file($fileLocation)) return false;
+        $tokens = token_get_all( file_get_contents($fileLocation) );
         //dd($tokens);
         foreach ($tokens as $key => $token) {
             if (!isset($token[1])) continue;
             if ($token[1] == 'function') {
                 //dd($token);
-                if (!isset($tokens[$key + $publicLoc][1])) continue;
+                //if (!isset($tokens[$key + $publicLoc][1])) continue;
 
-                if ($tokens[ $key + $publicLoc ][1] == 'public') {
+                //allowed methods to run
+//                if ($tokens[ $key + $publicLoc ][1] == 'public') {
+//                    $run = true;
+//                }
+                $run = true;
+                if ($run) {
                     $list = [];
+
+
+                    if (isset($tokens[ $key + $publicLoc ][1])) {
+                        $list['type'] = $tokens[ $key + $publicLoc ][1];
+                    } else {
+                        $list['type'] = 'UNKNOWN';
+                    }
+
                     if (isset($tokens[ $key  + $functionName ][1])) {
 
                         if ($tokens[ $key + $functionName ][1] == 'getApiList') continue;
@@ -399,23 +458,48 @@
                         if (isset($tokens[ $key + $offset ][1])) {
                             $string .= $tokens[ $key + $offset ][1];
                         } else {
-                            $string .= $tokens[ $key + $offset ];
+                            if (isset($tokens[ $key + $offset ])) {
+                                $string .= $tokens[ $key + $offset ];
+                            } else {
+                                $string .= '-NOTSET-';
+                            }
+
                         }
                         $offset++;
                         if ($offset > 50) $continue = false;
                     } while($continue);
 
-                   // $list['surrounding'] = $string;
+                    // $list['surrounding'] = $string;
                     $list['key'] = $key;
                     //dd($token);
                     //it is a public function so let's track it
-                    $lists[] = $list;
+
+                    if ($list['type'] == 'public') {
+                        $lists['public'][] = $list;
+
+                    } elseif ($list['type'] == 'static') {
+                        $lists['static'][] = $list;
+                    } elseif ($list['type'] == 'private') {
+                        $lists['private'][] = $list;
+                    } else {
+                        $lists['unknown'][] = $list;
+                    }
+
+                } else {
+
+                    //$ignores[] =
+                    //skip private function
 
                 }
             }
         }
 
-       // pr ($lists); exit;
+        return $lists;
+        //pr ($lists); exit;
+    }
+    public function getApiListAsMarkup() {
+
+        //@todo readd back the look function here
 
         //dd($tokens);
 
@@ -873,7 +957,7 @@
         //$file = new File($cache . $filename);
 
         $fileExists = file_exists($cache.$filename);
-         //pr ($filename);exit;
+        //pr ($filename);exit;
 
         if ($fileExists) {
 
@@ -2274,21 +2358,21 @@
      * @param $string
      * @return string
      */
-	public function removeImages($string)
-	{
-		return preg_replace("/<img[^>]+\>/i", "", $string);
-	}
+    public function removeImages($string)
+    {
+        return preg_replace("/<img[^>]+\>/i", "", $string);
+    }
 
     /**
      * Remove the HTML elements from a string
      * @param $str
      * @return array|string|string[]|null
      */
-	public function removeHtmlElements($str)
-	{
-		$str = preg_replace('/\<[\/]{0,1}div[^\>]*\>/i', '', $str);
-		return $str;
-	}
+    public function removeHtmlElements($str)
+    {
+        $str = preg_replace('/\<[\/]{0,1}div[^\>]*\>/i', '', $str);
+        return $str;
+    }
 
     /**
      * Easily make sure your path has either https:// OR http://
@@ -2296,27 +2380,27 @@
      * @param $prefix # http:// OR https://
      * @return string
      */
-	public function ensureHttpOrHttps($url, $prefix = 'http://')
-	{
-		if (substr($url, 0, 7) == 'http://') {
-			return $url;
-		} else if (substr($url, 0, 8) == 'https://') {
-			return $url;
-		} else {
-			//add it
-			return $prefix . $url;
-		}
-	}
+    public function ensureHttpOrHttps($url, $prefix = 'http://')
+    {
+        if (substr($url, 0, 7) == 'http://') {
+            return $url;
+        } else if (substr($url, 0, 8) == 'https://') {
+            return $url;
+        } else {
+            //add it
+            return $prefix . $url;
+        }
+    }
 
     /**
      * Quotes will only be SINGLE QUOTES, allows to safely add to html tags that are double quotes and not break the tag
      * @param $str
      * @return array|string|string[]
      */
-	private function cleanUpStringForQuotedSections($str)
-	{
+    private function cleanUpStringForQuotedSections($str)
+    {
         return $str ? str_replace('"', "'", $str): "";
-	}
+    }
 
     /**
      * @param $remove
@@ -2344,78 +2428,78 @@
     /**
      * DEPRECATED
      */
-	public function isEvery($nth, $count)
-	{
-		//2
-		if ($count == $nth) {
-			return true;
-		}
-		return false;
-	}
+    public function isEvery($nth, $count)
+    {
+        //2
+        if ($count == $nth) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * DEPRECATED
      */
-	public function getSingleNamesByLocation($locationName, $sort = 'ASC', $slug = false)
-	{
-		if ($slug) {
-			$this->loadPageBySlug($slug);
-		}
+    public function getSingleNamesByLocation($locationName, $sort = 'ASC', $slug = false)
+    {
+        if ($slug) {
+            $this->loadPageBySlug($slug);
+        }
 
-		$this->groupNames = array();
-		$this->singleNames = array();
+        $this->groupNames = array();
+        $this->singleNames = array();
 
-		$this->prepareElementsInLocation($locationName);
+        $this->prepareElementsInLocation($locationName);
 
-		//pr ($this->singleNames);exit;
-		if ($sort == 'ASC') {
-			natsort($this->singleNames);
-		} else {
-			krsort($this->singleNames);
-		}
-		return $this->singleNames;
-	}
-
-    /**
-     * DEPRECATED
-     */
-	public function getGroupNamesByLocation($locationName, $sort = 'ASC', $slug = false)
-	{
-		if ($slug) {
-			$this->loadPageBySlug($slug);
-		}
-
-		$this->groupNames = array();
-		$this->singleNames = array();
-
-		$this->prepareElementsInLocation($locationName);
-
-		if ($sort == 'ASC') {
-			natsort($this->groupNames);
-		} else {
-			krsort($this->groupNames);
-		}
-		return $this->groupNames;
-	}
+        //pr ($this->singleNames);exit;
+        if ($sort == 'ASC') {
+            natsort($this->singleNames);
+        } else {
+            krsort($this->singleNames);
+        }
+        return $this->singleNames;
+    }
 
     /**
      * DEPRECATED
      */
-	public function getTotalRecords()
-	{
-		return $this->total;
-	}
+    public function getGroupNamesByLocation($locationName, $sort = 'ASC', $slug = false)
+    {
+        if ($slug) {
+            $this->loadPageBySlug($slug);
+        }
+
+        $this->groupNames = array();
+        $this->singleNames = array();
+
+        $this->prepareElementsInLocation($locationName);
+
+        if ($sort == 'ASC') {
+            natsort($this->groupNames);
+        } else {
+            krsort($this->groupNames);
+        }
+        return $this->groupNames;
+    }
 
     /**
      * DEPRECATED
      */
-	public function convertString($from, $to, $string)
-	{
-		foreach ($from as $kFrom => $vFrom) {
-			$string = str_replace($vFrom, $to[$kFrom], $string);
-		}
-		//return "";
-		return $string;
-	}
+    public function getTotalRecords()
+    {
+        return $this->total;
+    }
+
+    /**
+     * DEPRECATED
+     */
+    public function convertString($from, $to, $string)
+    {
+        foreach ($from as $kFrom => $vFrom) {
+            $string = str_replace($vFrom, $to[$kFrom], $string);
+        }
+        //return "";
+        return $string;
+    }
 
 }
