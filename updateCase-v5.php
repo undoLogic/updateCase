@@ -85,6 +85,19 @@
 
     }
 
+    /**
+     * Access this from a public website page which will get the new content from UpdateCase
+     * @return local_uuid
+     */
+    public function sync() {
+        $this->local_uuid = $this->getMostRecentFilename();
+        $this->local_uuid = $this->downloadFromUpdateCase(
+            $this->getVariantId(),
+            $this->local_uuid
+        );
+        return $this->local_uuid;
+    }
+
     private function init() {
 
         //our current version
@@ -1773,7 +1786,7 @@
      * @param $limitToTag
      * @return array|false|void # this returns a complex array with all the data
      */
-    public function getPagesBySearch($searches, $limitToTag = false)
+    public function getPagesBySearch($searches, $limitToTag = false, $priorityTags = [])
     {
         if ($this->isPrepared()) {
             $results = array();
@@ -1816,13 +1829,23 @@
                             foreach ($searches as $search) {
                                 if (stripos($revision['content_text'], strtolower($search)) !== false) {
                                     //echo 'true';
+
+                                    $isPriority = false;
+                                    foreach ($tags as $tag) {
+                                        if (in_array($tag, $priorityTags)) {
+                                            //that tag is in our pririty
+                                            $isPriority = true;
+                                        }
+                                    }
+
                                     $found = array(
                                         'slug' => $page['slug'],
                                         'tags' => implode(',', $tags),
                                         'location' => $location['name'],
                                         'element' => $element['name'],
                                         'language' => $element['language'],
-                                        'text' => strip_tags($revision['content_text'])
+                                        'text' => strip_tags($revision['content_text']),
+                                        'isPriority' => $isPriority
                                     );
                                     $results[$page['slug']] = $found;
                                 }
@@ -1835,6 +1858,13 @@
                 }
 
             }
+
+
+            //sort our list by prioirty first
+            uasort($results, function($a, $b) {
+                if ( $a['isPriority'] == $b['isPriority']) return 0;
+                return $a['isPriority'] > $b['isPriority'] ? -1 : 1;
+            });
 
             //pr ($results);
             if (!empty($results)) {
@@ -2073,7 +2103,7 @@
             if (isset($this->page['Location'][$locationKey])) {
                 foreach ($this->page['Location'][$locationKey]['Element'] as $elementKey => $element) {
 
-                    $this->addDebugMessage(' checkingElmKey:'.$elementKey, true);
+                    //star$this->addDebugMessage(' checkingElmKey:'.$elementKey, true);
                     //@todo add all the logic about if it's a dated one etc
                     if ($elementToFind == $element['name']) {
                         if ($this->isGroupCorrect($groupToFind, $element['groupBy'])) {
