@@ -24,6 +24,9 @@ updateCase-v5.php is now DEPRECIATED
 
 
 
+
+
+
 ## __construct
 - ARGS: (array $options)
 - Useage: $updateCase->__construct(array $options)
@@ -38,11 +41,17 @@ $this->updateCase = new UpdateCase(['debug' => true,'variant_id' => $variant_id,
 ```
 
 ---
-## init
-- ARGS: ()
-- Useage: $updateCase->init()
+## __construct
+- ARGS: (array $options)
+- Useage: $updateCase->__construct(array $options)
 ```php
-No comment added
+$this->updateCase = new UpdateCase(['debug' => true,'variant_id' => $variant_id,'version' => 6,'lang' => $this->request->getAttribute('lang')]);
+@param array $options
+# debug true will force network connections while false will only use local cached data
+# variant_id required to interface with updateCase.com and get the correct data
+# version 5 is the current version
+# lang which language to use (supported: en/es/fr)
+@return array entire structure which can be passed into the view
 ```
 
 ---
@@ -55,11 +64,12 @@ Sets up the JSON file and formatts all the interal variables
 ```
 
 ---
-## addDebugMessage
-- ARGS: ($msg, $newLine =
-- Useage: $updateCase->addDebugMessage($msg, $newLine =
+## init_prepareJson
+- ARGS: ()
+- Useage: $updateCase->init_prepareJson()
 ```php
-No comment added
+Sets up the JSON file and formatts all the interal variables
+@return bool|int
 ```
 
 ---
@@ -72,67 +82,75 @@ Access this from a public website page eg Pages/sync which will get the new cont
 ```
 
 ---
-## isPrepared
+## sync
 - ARGS: ()
-- Useage: $updateCase->isPrepared()
+- Useage: $updateCase->sync()
 ```php
-No comment added
+Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
+@return local_uuid
 ```
 
 ---
-## ensureDirExists
-- ARGS: ($path)
-- Useage: $updateCase->ensureDirExists($path)
-```php
-No comment added
-```
-
----
-## getJsonPath
+## sync
 - ARGS: ()
-- Useage: $updateCase->getJsonPath()
+- Useage: $updateCase->sync()
 ```php
-No comment added
+Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
+@return local_uuid
 ```
 
 ---
-## getMostRecentFilename
+## sync
 - ARGS: ()
-- Useage: $updateCase->getMostRecentFilename()
+- Useage: $updateCase->sync()
 ```php
-No comment added
+Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
+@return local_uuid
 ```
 
 ---
-## getVariantId
+## sync
 - ARGS: ()
-- Useage: $updateCase->getVariantId()
+- Useage: $updateCase->sync()
 ```php
-No comment added
+Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
+@return local_uuid
 ```
 
 ---
-## download
-- ARGS: ($pathToUse, $debug =
-- Useage: $updateCase->download($pathToUse, $debug =
-```php
-No comment added
-```
-
----
-## downloadFromUpdateCase
-- ARGS: ($variant_id, $local_uuid =
-- Useage: $updateCase->downloadFromUpdateCase($variant_id, $local_uuid =
-```php
-No comment added
-```
-
----
-## isLive
+## sync
 - ARGS: ()
-- Useage: $updateCase->isLive()
+- Useage: $updateCase->sync()
 ```php
-No comment added
+Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
+@return local_uuid
+```
+
+---
+## sync
+- ARGS: ()
+- Useage: $updateCase->sync()
+```php
+Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
+@return local_uuid
+```
+
+---
+## sync
+- ARGS: ()
+- Useage: $updateCase->sync()
+```php
+Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
+@return local_uuid
+```
+
+---
+## sync
+- ARGS: ()
+- Useage: $updateCase->sync()
+```php
+Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
+@return local_uuid
 ```
 
 ---
@@ -178,91 +196,146 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 ```
 
 ---
-## getContentBy_getLocationKey
-- ARGS: ($locationName)
-- Useage: $updateCase->getContentBy_getLocationKey($locationName)
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
-## getContentBy_getSingleElementKey
-- ARGS: ($locationKey, $elementName)
-- Useage: $updateCase->getContentBy_getSingleElementKey($locationKey, $elementName)
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
-## getContentBy_getGroupedElementKey
-- ARGS: ($locationKey, $groupName, $elementName
-- Useage: $updateCase->getContentBy_getGroupedElementKey($locationKey, $groupName, $elementName
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
-## convertLang
-- ARGS: ($lang)
-- Useage: $updateCase->convertLang($lang)
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
-## isCurrentLang
-- ARGS: ($elementLang)
-- Useage: $updateCase->isCurrentLang($elementLang)
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
-## getContentBy_getExtendedName
-- ARGS: ($name)
-- Useage: $updateCase->getContentBy_getExtendedName($name)
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
-## getContentBy_returnContent
-- ARGS: ($elm)
-- Useage: $updateCase->getContentBy_returnContent($elm)
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
-## getContentBy_returnImage
-- ARGS: ($elm)
-- Useage: $updateCase->getContentBy_returnImage($elm)
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
-## getContentBy_returnImage_doesExist
-- ARGS: ($revision_id)
-- Useage: $updateCase->getContentBy_returnImage_doesExist($revision_id)
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
-## appendPassword
-- ARGS: ()
-- Useage: $updateCase->appendPassword()
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
-## getContentBy_returnImage_saveLocally
-- ARGS: ($revision_id)
-- Useage: $updateCase->getContentBy_returnImage_saveLocally($revision_id)
+## getContentBy
+- ARGS: (string $locationName, string
+- Useage: $updateCase->getContentBy(string $locationName, string
 ```php
-No comment added
+Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
+@param string $locationName
+@param string $elementName
+@param string $groupName # allows to use groups and loop blocks
+@param string $slug # allows to display content from a specific slug without 'changeSlug'
+@return string content which was added to UpdateCase.com
 ```
 
 ---
@@ -280,11 +353,17 @@ This will cache images from UpdateCase.com to website (webroot)
 ```
 
 ---
-## imageBasePath
-- ARGS: ()
-- Useage: $updateCase->imageBasePath()
+## getImageBy
+- ARGS: ($locationName, $elementName, $groupName
+- Useage: $updateCase->getImageBy($locationName, $elementName, $groupName
 ```php
-No comment added
+This will cache images from UpdateCase.com to website (webroot)
+@param $location
+@param $element
+@param $group
+@param $size # medium / thumb / large (still alpha functionality)
+@param $slug # conditional to get image without using changeSlug
+@return false|string # will return the url to the image on the webroot, can be added to img src="$webroot.$updateCase->getImageBy.....
 ```
 
 ---
@@ -297,11 +376,12 @@ Get the active language (en/es/fr)
 ```
 
 ---
-## isCurrentLanguage
-- ARGS: ($fieldLang)
-- Useage: $updateCase->isCurrentLanguage($fieldLang)
+## currLang
+- ARGS: ()
+- Useage: $updateCase->currLang()
 ```php
-No comment added
+Get the active language (en/es/fr)
+@return mixed
 ```
 
 ---
@@ -332,11 +412,12 @@ Get the Meta KEYWORDS either from the active slug (page) or if that does not exi
 ```
 
 ---
-## getMetaGeneral
-- ARGS: ($field)
-- Useage: $updateCase->getMetaGeneral($field)
+## getMetaKeywords
+- ARGS: ()
+- Useage: $updateCase->getMetaKeywords()
 ```php
-No comment added
+Get the Meta KEYWORDS either from the active slug (page) or if that does not exist on UpdateCase.com the ALL slug (page) Meta title will be returned instead
+@return string
 ```
 
 ---
@@ -481,19 +562,25 @@ Translate a word using the translation function located in UpdateCase.com
 ```
 
 ---
-## translate_prepare
-- ARGS: ($element_to_check, $term)
-- Useage: $updateCase->translate_prepare($element_to_check, $term)
+## translate
+- ARGS: ($term, $element =
+- Useage: $updateCase->translate($term, $element =
 ```php
-No comment added
+Translate a word using the translation function located in UpdateCase.com
+@param $term
+@param $element # eg en->fr meaning we are adding english terms which appear as french when echo'd
+@return false|mixed|string
 ```
 
 ---
-## translate_keepTrackOfNewTranslations
-- ARGS: ($newWord)
-- Useage: $updateCase->translate_keepTrackOfNewTranslations($newWord)
+## translate
+- ARGS: ($term, $element =
+- Useage: $updateCase->translate($term, $element =
 ```php
-No comment added
+Translate a word using the translation function located in UpdateCase.com
+@param $term
+@param $element # eg en->fr meaning we are adding english terms which appear as french when echo'd
+@return false|mixed|string
 ```
 
 ---
@@ -569,11 +656,14 @@ Search feature to give string or array of search terms to get the slug where the
 ```
 
 ---
-## $a
-- ARGS: , $b)
-- Useage: $updateCase->$a, $b)
+## getPagesBySearch
+- ARGS: ($searches, $limitToTag =
+- Useage: $updateCase->getPagesBySearch($searches, $limitToTag =
 ```php
-No comment added
+Search feature to give string or array of search terms to get the slug where they are available
+@param array|string $searches # allows to search for slugs from
+@param $limitToTag
+@return array|false|void # this returns a complex array with all the data
 ```
 
 ---
@@ -617,35 +707,43 @@ List of location names from the currently loaded page (slug)
 ```
 
 ---
-## getGroupNamesByLocation
-- ARGS: ($locationName, $sort =
-- Useage: $updateCase->getGroupNamesByLocation($locationName, $sort =
+## getUniqueNameForFieldByLocation
+- ARGS: ($locationName, $field)
+- Useage: $updateCase->getUniqueNameForFieldByLocation($locationName, $field)
 ```php
-No comment added
+@param $locationName
+@param $field
+@return array
 ```
 
 ---
-## isGroupCorrect
-- ARGS: ($groupToFind, $currentLoopedGroup)
-- Useage: $updateCase->isGroupCorrect($groupToFind, $currentLoopedGroup)
+## getUniqueNameForFieldByLocation
+- ARGS: ($locationName, $field)
+- Useage: $updateCase->getUniqueNameForFieldByLocation($locationName, $field)
 ```php
-No comment added
+@param $locationName
+@param $field
+@return array
 ```
 
 ---
-## getBaseLang
-- ARGS: ($lang)
-- Useage: $updateCase->getBaseLang($lang)
+## getUniqueNameForFieldByLocation
+- ARGS: ($locationName, $field)
+- Useage: $updateCase->getUniqueNameForFieldByLocation($locationName, $field)
 ```php
-No comment added
+@param $locationName
+@param $field
+@return array
 ```
 
 ---
-## locationViewString
-- ARGS: ($location, $element, $group
-- Useage: $updateCase->locationViewString($location, $element, $group
+## getUniqueNameForFieldByLocation
+- ARGS: ($locationName, $field)
+- Useage: $updateCase->getUniqueNameForFieldByLocation($locationName, $field)
 ```php
-No comment added
+@param $locationName
+@param $field
+@return array
 ```
 
 ---
@@ -728,27 +826,30 @@ Allows to view all the functions within your software and verify they are proper
 ```
 
 ---
-## getApiListFromLocation
-- ARGS: ($fileLocation = __FILE__)
-- Useage: $updateCase->getApiListFromLocation($fileLocation = __FILE__)
+## getApiList
+- ARGS: ()
+- Useage: $updateCase->getApiList()
 ```php
-No comment added
+Allows to view all the functions within your software and verify they are properly setup
+@return array
 ```
 
 ---
-## getApiListAsMarkup
+## getApiList
 - ARGS: ()
-- Useage: $updateCase->getApiListAsMarkup()
+- Useage: $updateCase->getApiList()
 ```php
-No comment added
+Allows to view all the functions within your software and verify they are properly setup
+@return array
 ```
 
 ---
-## getFunctionsWithComments
+## getApiList
 - ARGS: ()
-- Useage: $updateCase->getFunctionsWithComments()
+- Useage: $updateCase->getApiList()
 ```php
-No comment added
+Allows to view all the functions within your software and verify they are properly setup
+@return array
 ```
 
 ---
