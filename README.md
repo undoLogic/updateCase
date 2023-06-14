@@ -31,11 +31,8 @@ updateCase-v5.php is now DEPRECIATED
 
 
 
-
-
-
 ## __construct
-### ARGS: (array $options)
+#### ARGS: (array $options)
 ```php
 $this->updateCase = new UpdateCase(['debug' => true,'variant_id' => $variant_id,'version' => 6,'lang' => $this->request->getAttribute('lang')]);
 @param array $options
@@ -48,7 +45,7 @@ $this->updateCase = new UpdateCase(['debug' => true,'variant_id' => $variant_id,
 
 ---
 ## init
-### ARGS: ()
+#### ARGS: ()
 ```php
 $this->updateCase = new UpdateCase(['debug' => true,'variant_id' => $variant_id,'version' => 6,'lang' => $this->request->getAttribute('lang')]);
 @param array $options
@@ -61,7 +58,7 @@ $this->updateCase = new UpdateCase(['debug' => true,'variant_id' => $variant_id,
 
 ---
 ## init_prepareJson
-### ARGS: ()
+#### ARGS: ()
 ```php
 Sets up the JSON file and formatts all the interal variables
 @return bool|int
@@ -69,7 +66,7 @@ Sets up the JSON file and formatts all the interal variables
 
 ---
 ## addDebugMessage
-### ARGS: ($msg, $newLine =
+#### ARGS: ($msg, $newLine =
 ```php
 Sets up the JSON file and formatts all the interal variables
 @return bool|int
@@ -77,7 +74,7 @@ Sets up the JSON file and formatts all the interal variables
 
 ---
 ## sync
-### ARGS: ()
+#### ARGS: ()
 ```php
 Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
 @return local_uuid
@@ -85,7 +82,7 @@ Access this from a public website page eg Pages/sync which will get the new cont
 
 ---
 ## isPrepared
-### ARGS: ()
+#### ARGS: ()
 ```php
 Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
 @return local_uuid
@@ -93,7 +90,7 @@ Access this from a public website page eg Pages/sync which will get the new cont
 
 ---
 ## ensureDirExists
-### ARGS: ($path)
+#### ARGS: ($path)
 ```php
 Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
 @return local_uuid
@@ -101,7 +98,7 @@ Access this from a public website page eg Pages/sync which will get the new cont
 
 ---
 ## getJsonPath
-### ARGS: ()
+#### ARGS: ()
 ```php
 Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
 @return local_uuid
@@ -109,7 +106,7 @@ Access this from a public website page eg Pages/sync which will get the new cont
 
 ---
 ## getMostRecentFilename
-### ARGS: ()
+#### ARGS: ()
 ```php
 Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
 @return local_uuid
@@ -117,7 +114,7 @@ Access this from a public website page eg Pages/sync which will get the new cont
 
 ---
 ## getVariantId
-### ARGS: ()
+#### ARGS: ()
 ```php
 Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
 @return local_uuid
@@ -125,7 +122,7 @@ Access this from a public website page eg Pages/sync which will get the new cont
 
 ---
 ## download
-### ARGS: ($pathToUse, $debug =
+#### ARGS: ($pathToUse, $debug =
 ```php
 Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
 @return local_uuid
@@ -133,7 +130,7 @@ Access this from a public website page eg Pages/sync which will get the new cont
 
 ---
 ## downloadFromUpdateCase
-### ARGS: ($variant_id, $local_uuid =
+#### ARGS: ($variant_id, $local_uuid =
 ```php
 Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
 @return local_uuid
@@ -141,7 +138,7 @@ Access this from a public website page eg Pages/sync which will get the new cont
 
 ---
 ## isLive
-### ARGS: ()
+#### ARGS: ()
 ```php
 Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
 @return local_uuid
@@ -149,7 +146,7 @@ Access this from a public website page eg Pages/sync which will get the new cont
 
 ---
 ## debug
-### ARGS: ($maxRecentRows = 20)
+#### ARGS: ($maxRecentRows = 20)
 ```php
 @param $maxRecentRows # default to 20 can be increased to see further back
 @return string # can be echo'd to see a complete log of the actions to diagnose any issues and understand exactly what is happening
@@ -157,7 +154,7 @@ Access this from a public website page eg Pages/sync which will get the new cont
 
 ---
 ## changeVariant
-### ARGS: ($variant_id)
+#### ARGS: ($variant_id)
 ```php
 Allows to switch to a different variant_id which is useful when you want to share content between websites
 @param $variant_id
@@ -166,7 +163,7 @@ Allows to switch to a different variant_id which is useful when you want to shar
 
 ---
 ## changePage
-### ARGS: ($slug)
+#### ARGS: ($slug)
 ```php
 Switch to a different slug (or page on UpdateCase.com)
 @param $slug
@@ -175,7 +172,7 @@ Switch to a different slug (or page on UpdateCase.com)
 
 ---
 ## getContentBy
-### ARGS: (string $locationName, string
+#### ARGS: (string $locationName, string
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -187,7 +184,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## getContentBy_getLocationKey
-### ARGS: ($locationName)
+#### ARGS: ($locationName)
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -199,7 +196,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## getContentBy_getSingleElementKey
-### ARGS: ($locationKey, $elementName)
+#### ARGS: ($locationKey, $elementName)
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -211,7 +208,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## getContentBy_getGroupedElementKey
-### ARGS: ($locationKey, $groupName, $elementName
+#### ARGS: ($locationKey, $groupName, $elementName
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -223,7 +220,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## convertLang
-### ARGS: ($lang)
+#### ARGS: ($lang)
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -235,7 +232,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## isCurrentLang
-### ARGS: ($elementLang)
+#### ARGS: ($elementLang)
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -247,7 +244,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## getContentBy_getExtendedName
-### ARGS: ($name)
+#### ARGS: ($name)
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -259,7 +256,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## getContentBy_returnContent
-### ARGS: ($elm)
+#### ARGS: ($elm)
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -271,7 +268,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## getContentBy_returnImage
-### ARGS: ($elm)
+#### ARGS: ($elm)
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -283,7 +280,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## getContentBy_returnImage_doesExist
-### ARGS: ($revision_id)
+#### ARGS: ($revision_id)
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -295,7 +292,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## appendPassword
-### ARGS: ()
+#### ARGS: ()
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -307,7 +304,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## getContentBy_returnImage_saveLocally
-### ARGS: ($revision_id)
+#### ARGS: ($revision_id)
 ```php
 Display content added to UpdateCase. Best to copy-and-paste directly from site to save time setting up.
 @param string $locationName
@@ -319,7 +316,7 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 
 ---
 ## getImageBy
-### ARGS: ($locationName, $elementName, $groupName
+#### ARGS: ($locationName, $elementName, $groupName
 ```php
 This will cache images from UpdateCase.com to website (webroot)
 @param $location
@@ -332,7 +329,7 @@ This will cache images from UpdateCase.com to website (webroot)
 
 ---
 ## imageBasePath
-### ARGS: ()
+#### ARGS: ()
 ```php
 This will cache images from UpdateCase.com to website (webroot)
 @param $location
@@ -345,7 +342,7 @@ This will cache images from UpdateCase.com to website (webroot)
 
 ---
 ## currLang
-### ARGS: ()
+#### ARGS: ()
 ```php
 Get the active language (en/es/fr)
 @return mixed
@@ -353,7 +350,7 @@ Get the active language (en/es/fr)
 
 ---
 ## isCurrentLanguage
-### ARGS: ($fieldLang)
+#### ARGS: ($fieldLang)
 ```php
 Get the active language (en/es/fr)
 @return mixed
@@ -361,7 +358,7 @@ Get the active language (en/es/fr)
 
 ---
 ## getMetaTitle
-### ARGS: ()
+#### ARGS: ()
 ```php
 Get the Meta TITLE either from the active slug (page) or if that does not exist on UpdateCase.com the ALL slug (page) Meta title will be returned instead
 @return string
@@ -369,7 +366,7 @@ Get the Meta TITLE either from the active slug (page) or if that does not exist 
 
 ---
 ## getMetaDescription
-### ARGS: ()
+#### ARGS: ()
 ```php
 Get the Meta DESCRIPTION either from the active slug (page) or if that does not exist on UpdateCase.com the ALL slug (page) Meta title will be returned instead
 @return string
@@ -377,7 +374,7 @@ Get the Meta DESCRIPTION either from the active slug (page) or if that does not 
 
 ---
 ## getMetaKeywords
-### ARGS: ()
+#### ARGS: ()
 ```php
 Get the Meta KEYWORDS either from the active slug (page) or if that does not exist on UpdateCase.com the ALL slug (page) Meta title will be returned instead
 @return string
@@ -385,7 +382,7 @@ Get the Meta KEYWORDS either from the active slug (page) or if that does not exi
 
 ---
 ## getMetaGeneral
-### ARGS: ($field)
+#### ARGS: ($field)
 ```php
 Get the Meta KEYWORDS either from the active slug (page) or if that does not exist on UpdateCase.com the ALL slug (page) Meta title will be returned instead
 @return string
@@ -393,7 +390,7 @@ Get the Meta KEYWORDS either from the active slug (page) or if that does not exi
 
 ---
 ## getMetaProperty
-### ARGS: ($name)
+#### ARGS: ($name)
 ```php
 Get the Meta TITLE/KEYWORDS/DESCRIPTION either from the active slug (page) or if that does not exist on UpdateCase.com the ALL slug (page) Meta title will be returned instead
 @param $name # use 'title' OR 'keywords' OR 'description'
@@ -402,7 +399,7 @@ Get the Meta TITLE/KEYWORDS/DESCRIPTION either from the active slug (page) or if
 
 ---
 ## getMetaOgLocale
-### ARGS: ($lang)
+#### ARGS: ($lang)
 ```php
 OG LOCALE requires a full language string
 @param $lang
@@ -411,7 +408,7 @@ OG LOCALE requires a full language string
 
 ---
 ## setDate
-### ARGS: ($date)
+#### ARGS: ($date)
 ```php
 Allows to change the date which is used to simulate events in the future / past to test conditional locations
 @param $date
@@ -420,7 +417,7 @@ Allows to change the date which is used to simulate events in the future / past 
 
 ---
 ## getDate
-### ARGS: ()
+#### ARGS: ()
 ```php
 What date the UpdateCase client is using
 @return false|string
@@ -428,7 +425,7 @@ What date the UpdateCase client is using
 
 ---
 ## isLocationActive
-### ARGS: ($currLocationName)
+#### ARGS: ($currLocationName)
 ```php
 @todo bring this into the getContentBy above
 @param $currLocationName
@@ -437,7 +434,7 @@ What date the UpdateCase client is using
 
 ---
 ## doesSlugExist
-### ARGS: ($slug)
+#### ARGS: ($slug)
 ```php
 Check if a slug was created on UpdateCase.com
 @param $slug
@@ -446,7 +443,7 @@ Check if a slug was created on UpdateCase.com
 
 ---
 ## getPageSlugsByTag
-### ARGS: ($tagName, $sortBy =
+#### ARGS: ($tagName, $sortBy =
 ```php
 List of slugs from a tag useful to get and display all pages from a tag
 @param $tagName
@@ -458,7 +455,7 @@ List of slugs from a tag useful to get and display all pages from a tag
 
 ---
 ## getPageLangs
-### ARGS: ()
+#### ARGS: ()
 ```php
 Languages present in current page (slug) within ALL locations / elements
 @return array
@@ -466,7 +463,7 @@ Languages present in current page (slug) within ALL locations / elements
 
 ---
 ## getPageDate
-### ARGS: ($format = 'Y-m-d H:i:s')
+#### ARGS: ($format = 'Y-m-d H:i:s')
 ```php
 Page date which is set on UpdateCase.com
 @param $format # PHP date format
@@ -475,7 +472,7 @@ Page date which is set on UpdateCase.com
 
 ---
 ## getPage
-### ARGS: ()
+#### ARGS: ()
 ```php
 The page that was loaded from changeSlug
 @return array
@@ -483,7 +480,7 @@ The page that was loaded from changeSlug
 
 ---
 ## getTagsFromAllPages
-### ARGS: ($ignore = [])
+#### ARGS: ($ignore = [])
 ```php
 All the tags for every page within the loaded variant
 @param $ignore # array allowing to ignore a list
@@ -492,7 +489,7 @@ All the tags for every page within the loaded variant
 
 ---
 ## isTagPresent
-### ARGS: ($tag)
+#### ARGS: ($tag)
 ```php
 Is the tag present in the loaded page (slug)
 @param $tag
@@ -501,7 +498,7 @@ Is the tag present in the loaded page (slug)
 
 ---
 ## getTags
-### ARGS: ($ignore = [])
+#### ARGS: ($ignore = [])
 ```php
 The tags from the current loaded page (slug)
 @param $ignore
@@ -510,7 +507,7 @@ The tags from the current loaded page (slug)
 
 ---
 ## translate
-### ARGS: ($term, $element =
+#### ARGS: ($term, $element =
 ```php
 Translate a word using the translation function located in UpdateCase.com
 @param $term
@@ -520,7 +517,7 @@ Translate a word using the translation function located in UpdateCase.com
 
 ---
 ## translate_prepare
-### ARGS: ($element_to_check, $term)
+#### ARGS: ($element_to_check, $term)
 ```php
 Translate a word using the translation function located in UpdateCase.com
 @param $term
@@ -530,7 +527,7 @@ Translate a word using the translation function located in UpdateCase.com
 
 ---
 ## translate_keepTrackOfNewTranslations
-### ARGS: ($newWord)
+#### ARGS: ($newWord)
 ```php
 Translate a word using the translation function located in UpdateCase.com
 @param $term
@@ -540,7 +537,7 @@ Translate a word using the translation function located in UpdateCase.com
 
 ---
 ## exists
-### ARGS: ($locationName, $elementName =
+#### ARGS: ($locationName, $elementName =
 ```php
 Check if this location / element can be used and exists on UpdateCase.com
 @param $locationName
@@ -551,7 +548,7 @@ Check if this location / element can be used and exists on UpdateCase.com
 
 ---
 ## isEmpty
-### ARGS: ($locationName, $elementName =
+#### ARGS: ($locationName, $elementName =
 ```php
 When it exists by if the content is empty
 @param $locationName
@@ -562,7 +559,7 @@ When it exists by if the content is empty
 
 ---
 ## isNotEmpty
-### ARGS: ($locationName, $elementName =
+#### ARGS: ($locationName, $elementName =
 ```php
 Not empty so there IS content available
 @param $locationName
@@ -573,7 +570,7 @@ Not empty so there IS content available
 
 ---
 ## doesContain
-### ARGS: ($search, $locationName, $elementName
+#### ARGS: ($search, $locationName, $elementName
 ```php
 Useful for searches to see if a string of text is available
 @param $search # string search term
@@ -585,7 +582,7 @@ Useful for searches to see if a string of text is available
 
 ---
 ## existsInPage
-### ARGS: ($slug, $locationName, $elementName
+#### ARGS: ($slug, $locationName, $elementName
 ```php
 @param $slug
 @param $locationName
@@ -596,7 +593,7 @@ Useful for searches to see if a string of text is available
 
 ---
 ## getPagesBySearch
-### ARGS: ($searches, $limitToTag =
+#### ARGS: ($searches, $limitToTag =
 ```php
 Search feature to give string or array of search terms to get the slug where they are available
 @param array|string $searches # allows to search for slugs from
@@ -606,7 +603,7 @@ Search feature to give string or array of search terms to get the slug where the
 
 ---
 ## $a
-### ARGS: , $b)
+#### ARGS: , $b)
 ```php
 Search feature to give string or array of search terms to get the slug where they are available
 @param array|string $searches # allows to search for slugs from
@@ -616,7 +613,7 @@ Search feature to give string or array of search terms to get the slug where the
 
 ---
 ## getPageSlugsBySearch
-### ARGS: ($searches)
+#### ARGS: ($searches)
 ```php
 Allow to search for a string or array or strings and get the slugs where they are available
 @param array|string $searches
@@ -625,7 +622,7 @@ Allow to search for a string or array or strings and get the slugs where they ar
 
 ---
 ## getPageSlugsByYear
-### ARGS: ($year)
+#### ARGS: ($year)
 ```php
 All pages (slugs) are stored on UpdateCase.com with a date, this allows to get a list from a specific year
 @param $year
@@ -634,7 +631,7 @@ All pages (slugs) are stored on UpdateCase.com with a date, this allows to get a
 
 ---
 ## getLocationNames
-### ARGS: ($ignore = false)
+#### ARGS: ($ignore = false)
 ```php
 List of location names from the currently loaded page (slug)
 @param $ignore # conditional
@@ -643,7 +640,7 @@ List of location names from the currently loaded page (slug)
 
 ---
 ## getUniqueNameForFieldByLocation
-### ARGS: ($locationName, $field)
+#### ARGS: ($locationName, $field)
 ```php
 @param $locationName
 @param $field
@@ -652,7 +649,7 @@ List of location names from the currently loaded page (slug)
 
 ---
 ## getGroupNamesByLocation
-### ARGS: ($locationName, $sort =
+#### ARGS: ($locationName, $sort =
 ```php
 @param $locationName
 @param $field
@@ -661,7 +658,7 @@ List of location names from the currently loaded page (slug)
 
 ---
 ## isGroupCorrect
-### ARGS: ($groupToFind, $currentLoopedGroup)
+#### ARGS: ($groupToFind, $currentLoopedGroup)
 ```php
 @param $locationName
 @param $field
@@ -670,7 +667,7 @@ List of location names from the currently loaded page (slug)
 
 ---
 ## getBaseLang
-### ARGS: ($lang)
+#### ARGS: ($lang)
 ```php
 @param $locationName
 @param $field
@@ -679,7 +676,7 @@ List of location names from the currently loaded page (slug)
 
 ---
 ## locationViewString
-### ARGS: ($location, $element, $group
+#### ARGS: ($location, $element, $group
 ```php
 @param $locationName
 @param $field
@@ -688,7 +685,7 @@ List of location names from the currently loaded page (slug)
 
 ---
 ## getTextOnly
-### ARGS: (string $text, $limit
+#### ARGS: (string $text, $limit
 ```php
 Text without any html tags
 @param string $text # html content
@@ -698,7 +695,7 @@ Text without any html tags
 
 ---
 ## removeImages
-### ARGS: ($string)
+#### ARGS: ($string)
 ```php
 Remove the image tags from a string
 @param $string
@@ -707,7 +704,7 @@ Remove the image tags from a string
 
 ---
 ## removeHtmlElements
-### ARGS: ($str)
+#### ARGS: ($str)
 ```php
 Remove the HTML elements from a string
 @param $str
@@ -716,7 +713,7 @@ Remove the HTML elements from a string
 
 ---
 ## ensureHttpOrHttps
-### ARGS: ($url, $prefix =
+#### ARGS: ($url, $prefix =
 ```php
 Easily make sure your path has either https:// OR http://
 @param $url
@@ -726,7 +723,7 @@ Easily make sure your path has either https:// OR http://
 
 ---
 ## cleanUpStringForQuotedSections
-### ARGS: ($str)
+#### ARGS: ($str)
 ```php
 Quotes will only be SINGLE QUOTES, allows to safely add to html tags that are double quotes and not break the tag
 @param $str
@@ -735,7 +732,7 @@ Quotes will only be SINGLE QUOTES, allows to safely add to html tags that are do
 
 ---
 ## removeTextFrom
-### ARGS: ($remove, $string)
+#### ARGS: ($remove, $string)
 ```php
 @param $remove
 @param $string
@@ -744,14 +741,14 @@ Quotes will only be SINGLE QUOTES, allows to safely add to html tags that are do
 
 ---
 ## ensureHttp
-### ARGS: ($url)
+#### ARGS: ($url)
 ```php
 DEPRECATED use ensureHttpOrHttps
 ```
 
 ---
 ## getApiList
-### ARGS: ()
+#### ARGS: ()
 ```php
 Allows to view all the functions within your software and verify they are properly setup
 @return array
@@ -759,7 +756,7 @@ Allows to view all the functions within your software and verify they are proper
 
 ---
 ## getApiListFromLocation
-### ARGS: ($fileLocation = __FILE__)
+#### ARGS: ($fileLocation = __FILE__)
 ```php
 Allows to view all the functions within your software and verify they are properly setup
 @return array
@@ -767,7 +764,7 @@ Allows to view all the functions within your software and verify they are proper
 
 ---
 ## getApiListAsMarkup
-### ARGS: ()
+#### ARGS: ()
 ```php
 Allows to view all the functions within your software and verify they are properly setup
 @return array
@@ -775,7 +772,7 @@ Allows to view all the functions within your software and verify they are proper
 
 ---
 ## getFunctionsWithComments
-### ARGS: ()
+#### ARGS: ()
 ```php
 Allows to view all the functions within your software and verify they are properly setup
 @return array
