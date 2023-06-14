@@ -23,8 +23,6 @@ updateCase-v5.php is now DEPRECIATED
 
 
 
-
-
 ## __construct
 - ARGS: (array $options)
 - Useage: $updateCase->__construct(array $options)
@@ -54,38 +52,6 @@ Sets up the JSON file and formatts all the interal variables
 ```php
 Access this from a public website page eg Pages/sync which will get the new content from UpdateCase
 @return local_uuid
-```
-
----
-## ensureDirExists
-- ARGS: ($path)
-- Useage: $updateCase->ensureDirExists($path)
-```php
-No comment added
-```
-
----
-## getMostRecentFilename
-- ARGS: ()
-- Useage: $updateCase->getMostRecentFilename()
-```php
-No comment added
-```
-
----
-## download
-- ARGS: ($pathToUse, $debug =
-- Useage: $updateCase->download($pathToUse, $debug =
-```php
-No comment added
-```
-
----
-## isLive
-- ARGS: ()
-- Useage: $updateCase->isLive()
-```php
-No comment added
 ```
 
 ---
@@ -128,46 +94,6 @@ Display content added to UpdateCase. Best to copy-and-paste directly from site t
 @param string $groupName # allows to use groups and loop blocks
 @param string $slug # allows to display content from a specific slug without 'changeSlug'
 @return string content which was added to UpdateCase.com
-```
-
----
-## getContentBy_getSingleElementKey
-- ARGS: ($locationKey, $elementName)
-- Useage: $updateCase->getContentBy_getSingleElementKey($locationKey, $elementName)
-```php
-No comment added
-```
-
----
-## convertLang
-- ARGS: ($lang)
-- Useage: $updateCase->convertLang($lang)
-```php
-No comment added
-```
-
----
-## getContentBy_getExtendedName
-- ARGS: ($name)
-- Useage: $updateCase->getContentBy_getExtendedName($name)
-```php
-No comment added
-```
-
----
-## getContentBy_returnImage
-- ARGS: ($elm)
-- Useage: $updateCase->getContentBy_returnImage($elm)
-```php
-No comment added
-```
-
----
-## appendPassword
-- ARGS: ()
-- Useage: $updateCase->appendPassword()
-```php
-No comment added
 ```
 
 ---
@@ -362,14 +288,6 @@ Translate a word using the translation function located in UpdateCase.com
 ```
 
 ---
-## translate_keepTrackOfNewTranslations
-- ARGS: ($newWord)
-- Useage: $updateCase->translate_keepTrackOfNewTranslations($newWord)
-```php
-No comment added
-```
-
----
 ## exists
 - ARGS: ($locationName, $elementName =
 - Useage: $updateCase->exists($locationName, $elementName =
@@ -482,22 +400,6 @@ List of location names from the currently loaded page (slug)
 ```
 
 ---
-## isGroupCorrect
-- ARGS: ($groupToFind, $currentLoopedGroup)
-- Useage: $updateCase->isGroupCorrect($groupToFind, $currentLoopedGroup)
-```php
-No comment added
-```
-
----
-## locationViewString
-- ARGS: ($location, $element, $group
-- Useage: $updateCase->locationViewString($location, $element, $group
-```php
-No comment added
-```
-
----
 ## getTextOnly
 - ARGS: (string $text, $limit
 - Useage: $updateCase->getTextOnly(string $text, $limit
@@ -574,14 +476,6 @@ DEPRECATED use ensureHttpOrHttps
 ```php
 Allows to view all the functions within your software and verify they are properly setup
 @return array
-```
-
----
-## getApiListAsMarkup
-- ARGS: ()
-- Useage: $updateCase->getApiListAsMarkup()
-```php
-No comment added
 ```
 
 ---
