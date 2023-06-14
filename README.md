@@ -4,11 +4,15 @@
 
 Our solution provides a simple website publishing software for your staff to confidentially modify your website content (text & images) independently from all the complex programming & scripting required to maintain your custom business website.
 
+### Versions
+updateCase-v5.php (DEPRECIATED)
+
+
 ### Concept
 - Prepare your account on UpdateCase.com
-- Include this class on your website
-- Use UpdateCase.com to add the methods after you create content with copy / paste (better than manually typing out)
-- Non-technical team can now update content (text / images) independantly from technical team while ensuring branding is maintained
+- Include this client on your website
+- Use UpdateCase.com - You can copy the methods to add to your source files
+- Non-technical team can now update content (text / images) independently from technical team while ensuring branding is maintained
 - Your technical team can now focus on more complex and effective updates instead of making text and image updates
 
 ### API Methods

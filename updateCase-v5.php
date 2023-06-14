@@ -547,6 +547,9 @@
 
     }
 
+    public function getLocalUUID() {
+        return $this->local_uuid;
+    }
     /**
      * Allows to switch to a different variant_id which is useful when you want to share content between websites
      * @param $variant_id
